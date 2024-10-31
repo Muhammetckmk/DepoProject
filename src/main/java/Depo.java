@@ -37,4 +37,16 @@ public class Depo {
 
         }
 
+    // Ürünü rafa koyma
+    public void urunuRafaKoy(int id, String raf) {
+        Urun urun = urunDepo.get(id);
+        if (urun != null) {
+            urun.setRaf(raf);
+            System.out.println("Ürün rafa yerleştirildi: " + raf);
+        } else {
+            System.out.println("Ürün bulunamadı.");
+        }
+    }
+
+
     }
