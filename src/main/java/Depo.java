@@ -3,6 +3,7 @@ import java.util.Map;
 
 public class Depo {
         private Map<Integer, Urun> urunDepo = new HashMap<>();
+        private Map<String, Integer> rafDurumu = new HashMap<>();// Raf durumu kontrolü için
         private int idSayaci=1000;  // Her ürüne benzersiz ID verecek sayaç
 
         // Ürün Tanımlama Metodu
@@ -40,12 +41,18 @@ public class Depo {
     // Ürünü rafa koyma
     public void urunuRafaKoy(int id, String raf) {
         Urun urun = urunDepo.get(id);
+
         if (urun != null) {
-            urun.setRaf(raf);
-            System.out.println("Ürün rafa yerleştirildi: " + raf);
+            // Raf kontrolü: ya raf boş olmalı ya da aynı ID'ye sahip olmalı
+            if (!rafDurumu.containsKey(raf) || rafDurumu.get(raf) == id) {
+                urun.setRaf(raf);  // Ürünün raf bilgisi güncellenir
+                rafDurumu.put(raf, id);  // Raf durumu güncellenir
+                System.out.println("Ürün rafa yerleştirildi: " + raf);
+            } else {
+                System.out.println("Bu raf dolu ve aynı ID'ye sahip olmayan başka bir ürün var.");
+            }
         } else {
             System.out.println("Ürün bulunamadı.");
         }
     }
-
 }
