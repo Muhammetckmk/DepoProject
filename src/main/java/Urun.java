@@ -24,7 +24,7 @@ public class Urun {    private int id;
         return miktar;
     }
 
-    public String getUretici(String üretici) {
+    public String getUretici() {
         return uretici;
     }
 
