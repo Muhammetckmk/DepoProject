@@ -35,6 +35,7 @@ public class Depo {
                 System.out.println(urun);
             }
 
+
         }
 
     // Ürünü rafa koyma
@@ -48,5 +49,13 @@ public class Depo {
         }
     }
 
+    public static void main(String[] args) {
+        Depo ürün= new Depo();
+        ürün.urunTanimlama("silgi", "runner", "koli");
+
+        ürün.urunuRafaKoy(1000,"raf1");
+        ürün.urunListele();
+
+        }
 
     }
