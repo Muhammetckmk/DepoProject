@@ -38,21 +38,33 @@ public class Depo {
 
         }
 
-    // Ürünü rafa koyma
-    public void urunuRafaKoy(int id, String raf) {
-        Urun urun = urunDepo.get(id);
+        // Ürün Girişi
+        public void urunGirisi(int id, int miktar) {
+            Urun urun = urunDepo.get(id); //Map içindeki get methodu ile id numarasına göre ürün bulmaya çalıştık
 
-        if (urun != null) {
-            // Raf kontrolü: ya raf boş olmalı ya da aynı ID'ye sahip olmalı
-            if (!rafDurumu.containsKey(raf) || rafDurumu.get(raf) == id) {
-                urun.setRaf(raf);  // Ürünün raf bilgisi güncellenir
-                rafDurumu.put(raf, id);  // Raf durumu güncellenir
-                System.out.println("Ürün rafa yerleştirildi: " + raf);
-            } else {
-                System.out.println("Bu raf dolu ve aynı ID'ye sahip olmayan başka bir ürün var.");
+            if (urun != null) { //id ile eşleşen ürün olup olmadığını kontrol ettik
+                urun.setMiktar(urun.getMiktar() + miktar); //mevcut miktar üzerine yeni miktar ekledik ve Urun objesinde güncellenmesini sağladık
+
+            } else { //id ile eşleşen ürün yoksa ürün bulunamadı yazdırdık
+                System.out.println("Ürün bulunamadı.");
             }
-        } else {
-            System.out.println("Ürün bulunamadı.");
         }
-    }
+
+        // Ürünü rafa koyma
+        public void urunuRafaKoy(int id, String raf) {
+            Urun urun = urunDepo.get(id);
+
+            if (urun != null) {
+                // Raf kontrolü: ya raf boş olmalı ya da aynı ID'ye sahip olmalı
+                if (!rafDurumu.containsKey(raf) || rafDurumu.get(raf) == id) {
+                    urun.setRaf(raf);  // Ürünün raf bilgisi güncellenir
+                    rafDurumu.put(raf, id);  // Raf durumu güncellenir
+                    System.out.println("Ürün rafa yerleştirildi: " + raf);
+                } else {
+                    System.out.println("Bu raf dolu ve aynı ID'ye sahip olmayan başka bir ürün var.");
+                }
+            } else {
+                System.out.println("Ürün bulunamadı.");
+            }
+        }
 }
