@@ -1,4 +1,6 @@
-public class Urun {    private int id;
+public class Urun {
+
+    private int id;
     private String urunIsmi;
     private String uretici;
     private int miktar = 0; // başlangıçta 0
@@ -103,6 +105,5 @@ java
 
         Birçok uygulamada, veriyi bir katmandan diğerine taşımak için POJO sınıfları kullanılır. (API)
     */
-
 
 }
