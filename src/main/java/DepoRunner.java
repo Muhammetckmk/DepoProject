@@ -4,8 +4,16 @@ public class DepoRunner {
 
     public static void main(String[] args) {
         Depo depo = new Depo();
+
+
+        start(depo);
+
+    }
+
+    private static void start(Depo depo) {
         Scanner scanner = new Scanner(System.in);
         int secim;
+
 
         do {
             System.out.println("1- Ürün Tanımlama\n2- Ürün Listeleme\n3- Ürün Girişi\n4- Ürünü Rafa Koy\n5- Ürün Çıkışı\n0- Çıkış");
@@ -14,15 +22,36 @@ public class DepoRunner {
 
             switch (secim) {
                 case 1:
-                    scanner.nextLine(); // Satır sonu karakterini tüket
-                    System.out.print("Ürün İsmi: ");
-                    String urunIsmi = scanner.nextLine();
-                    System.out.print("Üretici: ");
-                    String uretici = scanner.nextLine();
-                    System.out.print("Birim: ");
-                    String birim = scanner.nextLine();
-                    depo.urunTanimlama(urunIsmi, uretici, birim); // ID otomatik atanacak
-                    break;
+                       scanner.nextLine();
+                    String urunIsmi;
+                    String uretici;
+                    String birim;
+                        do {
+                           System.out.print("Ürün İsmi: ");
+                           urunIsmi = scanner.nextLine();
+                           if (urunIsmi.isBlank()||urunIsmi.isEmpty()){
+                               System.out.println("Geçerli bir ürün ismi giriniz");
+                           }
+                       }while (urunIsmi.isBlank()||urunIsmi.isEmpty());
+
+                        do {
+                            System.out.print("Üretici: ");
+                            uretici = scanner.nextLine();
+                            if (uretici.isEmpty() || uretici.isBlank()) {
+                                System.out.println("Geçerli bir üretici ismi giriniz");
+                            }
+                        }while (uretici.isEmpty() || uretici.isBlank());
+                        do {
+                            System.out.print("Birim: ");
+                           birim = scanner.nextLine();
+                            if (birim.isBlank() || birim.isEmpty()) {
+                                System.out.println("Geçerli bir birim giriniz");
+                            }
+                        }while (birim.isBlank() || birim.isEmpty());
+                        depo.urunTanimlama(urunIsmi, uretici, birim);
+                 break;
+
+
                 case 2:
                     depo.urunListele();
                     break;
@@ -36,7 +65,7 @@ public class DepoRunner {
                 case 4:
                     System.out.print("Ürün ID: ");
                     id = scanner.nextInt();
-                    scanner.nextLine(); // Satır sonu karakterini tüket
+                    scanner.nextLine();
                     System.out.print("Raf: ");
                     String raf = scanner.nextLine();
                     depo.urunuRafaKoy(id, raf);

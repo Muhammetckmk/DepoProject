@@ -11,18 +11,15 @@ public class Depo {
     // Ürün Tanımlama Metodu
     public void urunTanimlama(String urunIsmi, String uretici, String birim) {
 
-        // Aynı isim ve üreticiye sahip bir ürün var mı kontrol et
         boolean ayniUrunVarMi = urunDepo.values().stream()
                 .anyMatch(t -> t.getUrunIsmi().equalsIgnoreCase(urunIsmi) && t.getUretici().equalsIgnoreCase(uretici));
-        //urunDepo= {1=  1  defter  mopak  0  koli  -, .......}
 
-        // Eğer aynı ürün varsa eklemeyi yapma, uyarı ver
         if (ayniUrunVarMi) {
             System.out.println("Bu ürün zaten tanımlanmış: " + urunIsmi + " - " + uretici);
         } else {
             Urun yeniUrun = new Urun(idSayaci++, urunIsmi, uretici, birim);
             urunDepo.put(yeniUrun.getId(), yeniUrun);
-            //urunDepo= {1=  1  defter  mopak  0  koli  -, ...}
+
             System.out.println("Yeni ürün tanımlandı: " + yeniUrun);
         }
     }
@@ -40,11 +37,10 @@ public class Depo {
 
     // Ürün Girişi
     public void urunGirisi(int id, int miktar) {
-        Urun urun = urunDepo.get(id); //Map içindeki get methodu ile id numarasına göre ürün bulmaya çalıştık
-
-        if (urun != null) { //id ile eşleşen ürün olup olmadığını kontrol ettik
-            urun.setMiktar(urun.getMiktar() + miktar); //mevcut miktar üzerine yeni miktar ekledik ve Urun objesinde güncellenmesini sağladık
-        } else { //id ile eşleşen ürün yoksa ürün bulunamadı yazdırdık
+        Urun urun = urunDepo.get(id);
+        if (urun != null) {
+            urun.setMiktar(urun.getMiktar() + miktar);
+        } else {
             System.out.println("Ürün bulunamadı.");
         }
     }
@@ -55,13 +51,11 @@ public class Depo {
         Urun urun = urunDepo.get(id);
 
         if (urun != null) {
-            // Raf kontrolü: ya raf boş olmalı ya da aynı ID'ye sahip olmalı
+
             if (!rafDurumu.containsKey(raf) || rafDurumu.get(raf) == id) {
 
-
-                urun.setRaf(raf);  // Ürünün raf bilgisi güncellenir
-                rafDurumu.put(raf, id);  // Raf durumu güncellenir
-
+                urun.setRaf(raf);
+                rafDurumu.put(raf, id);
                 System.out.println("Ürün rafa yerleştirildi: " + raf);
             } else {
                 System.out.println("Bu raf dolu ve aynı ID'ye sahip olmayan başka bir ürün var.");
