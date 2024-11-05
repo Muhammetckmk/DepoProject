@@ -3,7 +3,7 @@ public class Urun {
     private int id;
     private String urunIsmi;
     private String uretici;
-    private int miktar = 0; // başlangıçta 0
+    private double miktar = 0; // başlangıçta 0
     private String birim;
     private String raf = "-"; // başlangıçta tanımlı değil
 
@@ -22,7 +22,7 @@ public class Urun {
         return birim;
     }
 
-    public int getMiktar() {
+    public double getMiktar() {
         return miktar;
     }
 
@@ -50,7 +50,7 @@ public class Urun {
         this.uretici = uretici;
     }
 
-    public void setMiktar(int miktar) {
+    public void setMiktar(double miktar) {
         this.miktar = miktar;
     }
 
