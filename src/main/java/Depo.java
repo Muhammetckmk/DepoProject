@@ -4,7 +4,6 @@ import java.util.Map;
 public class Depo {
 
     private Map<Integer, Urun> urunDepo = new HashMap<>();
-    private Map<String, Integer> rafDurumu = new HashMap<>();// Raf durumu kontrolü için
     private int idSayaci = 1000; // Başlangıç ID değeri (1000'den başlayabilir)
 
 
@@ -29,19 +28,19 @@ public class Depo {
         System.out.printf("%-10s %-10s %-10s %-10s %-10s %-10s%n", "ID", "İsim", "Üretici", "Miktar", "Birim", "Raf");
         System.out.println("----------------------------------------------------------");
         for (Urun urun : urunDepo.values()) {
-            System.out.printf("%-10d %-10s %-10s %-10d %-10s %-10s%n",
+            System.out.printf("%-10d %-10s %-10s %-10.2f %-10s %-10s%n",
                     urun.getId(), urun.getUrunIsmi(), urun.getUretici(),
                     urun.getMiktar(), urun.getBirim(), urun.getRaf());
         }
     }
 
     // Ürün Girişi
-    public void urunGirisi(int id, int miktar) {
+    public void urunGirisi(int id, double miktar) {
         Urun urun = urunDepo.get(id);
         if (urun != null) {
             urun.setMiktar(urun.getMiktar() + miktar);
         } else {
-            System.out.println("Ürün bulunamadı.");
+            System.out.println("Girilen Id de bir ürün bulunamadı.");
         }
     }
 
@@ -49,13 +48,13 @@ public class Depo {
     // Ürünü rafa koyma
     public void urunuRafaKoy(int id, String raf) {
         Urun urun = urunDepo.get(id);
-
         if (urun != null) {
+            // Diğer ürünleri kontrol ederek aynı rafı kullanan farklı ID'li bir ürün var mı bak
+            boolean ayniRafKullanimdaMi = urunDepo.values().stream()
+                    .anyMatch(u -> raf.equals(u.getRaf()) && u.getId() != id);
 
-            if (!rafDurumu.containsKey(raf) || rafDurumu.get(raf) == id) {
-
-                urun.setRaf(raf);
-                rafDurumu.put(raf, id);
+            if (!ayniRafKullanimdaMi) {
+                urun.setRaf(raf);  // Ürünün raf bilgisi güncellenir
                 System.out.println("Ürün rafa yerleştirildi: " + raf);
             } else {
                 System.out.println("Bu raf dolu ve aynı ID'ye sahip olmayan başka bir ürün var.");
@@ -68,17 +67,18 @@ public class Depo {
 
 
     // Ürün çıkışı
-    public void urunCikisi(int id, int miktar) {
+    public void urunCikisi(int id, double miktar) {
         Urun urun = urunDepo.get(id);
         if (urun != null) {
             if (urun.getMiktar() >= miktar) {
                 urun.setMiktar(urun.getMiktar() - miktar);
-                System.out.println("Ürün çıkışı yapıldı: " + miktar + " çıkarıldı.");
+                System.out.println(miktar+ " " + urun.getBirim() + " " +urun.getUrunIsmi()+  " çıkarıldı.");
             } else {
-                System.out.println("Yetersiz miktar. Mevcut miktar: " + urun.getMiktar());
+                System.out.println("Stoktaki "+ urun.getUrunIsmi()+" miktarından fazla ürün çıkışı yapılamaz.\n" +
+                        "Stoktaki "+ urun.getUrunIsmi() +" miktarı :" + urun.getMiktar()+ " "+ urun.getBirim());
             }
         } else {
-            System.out.println("Ürün bulunamadı.");
+            System.out.println("Girilen Id de bir ürün bulunamadı.");
         }
     }
 }
