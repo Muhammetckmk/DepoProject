@@ -44,7 +44,7 @@ public class Start {
                     if (miktar<0){
                        miktar= Kontrol.miktarSifirdanKucukOlamaz(scanner,id,miktar);
                     }
-                    depo.urunGirisi(id, miktar);
+                    depo.urunGirisi(id, (int) miktar);
                     depo.urunListele();
                     break;
 
@@ -66,7 +66,7 @@ public class Start {
                     if (miktar<0){
                         miktar= Kontrol.miktarSifirdanKucukOlamaz(scanner,id,miktar);
                     }
-                    depo.urunCikisi(id, miktar);
+                    depo.urunCikisi(id, (int) miktar);
                     depo.urunListele();
                     break;
                 case 6:
