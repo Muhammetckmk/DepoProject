@@ -32,8 +32,7 @@ public class Kontrol {
                System.out.println(mavi+"İşlemi tekrarlamak için : "+reset+ sarı+1 +reset+mavi+" (bir)\nAnamenüye dönmek için   : "+reset+sarı+9+reset+mavi+" (dokuz) a basınız"+reset);
                 secenek=scanner.nextInt();
                if (secenek==1){
-                   System.out.print("Ürün ID: ");
-                   id=scanner.nextInt();
+
                    System.out.print("Miktar: ");
                    miktar = scanner.nextDouble();
                    return miktar ;

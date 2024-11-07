@@ -62,7 +62,7 @@ public class Start {
                     System.out.print("Ürün ID: ");
                     id = scanner.nextInt();
                     System.out.print("Miktar: ");
-                    miktar = scanner.nextInt();
+                    miktar = scanner.nextDouble();
                     if (miktar<0){
                         miktar= Kontrol.miktarSifirdanKucukOlamaz(scanner,id,miktar);
                     }
