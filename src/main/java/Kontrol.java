@@ -4,11 +4,14 @@ public class Kontrol {
 
 
    public static String isEmptyIsBlank(Scanner scanner, String mesaj) {
-        String girdi;
+
+       String reset = "\u001B[0m";
+       String kırmızı= "\u001B[31m";
+       String girdi;
        do {
             girdi=scanner.nextLine();
                if (girdi.isBlank() || girdi.isEmpty()) {
-                   System.out.print("Bu alan boş bırakılamaz. lütfen geçrli bir değer giriniz\n"+mesaj);
+                   System.out.print(kırmızı+"Bu alan boş bırakılamaz. lütfen geçrli bir değer giriniz+\n"+reset+mesaj);
                } else {
                    break;
                }
@@ -18,12 +21,15 @@ public class Kontrol {
    }
 
    public static Double miktarSifirdanKucukOlamaz(Scanner scanner, int id, double miktar){
+       String sarı="\u001B[33m";
+       String mavi= "\u001B[34m";
+       String reset = "\u001B[0m";
+       String kırmızı= "\u001B[31m";
 
-             int secenek;
-
+       int secenek;
            do {
-               System.out.println("Girilecek  miktar 0 dan küçük olamaz.");
-               System.out.println("İşlemi tekrarlamak için : "+1 +" (bir)\nAnamenüye dönmek için    : "+9+" (dokuz) a basınız");
+               System.out.println(kırmızı+"Girilecek  miktar 0 dan küçük olamaz."+reset);
+               System.out.println(mavi+"İşlemi tekrarlamak için : "+reset+ sarı+1 +reset+mavi+" (bir)\nAnamenüye dönmek için   : "+reset+sarı+9+reset+mavi+" (dokuz) a basınız"+reset);
                 secenek=scanner.nextInt();
                if (secenek==1){
                    System.out.print("Ürün ID: ");
@@ -34,7 +40,6 @@ public class Kontrol {
                } else if (secenek==9) {
                    return miktar=0;
                }
-
            }while (miktar<=0);
         return miktar ;
 

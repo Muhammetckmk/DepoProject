@@ -25,42 +25,49 @@ public class Depo {
 
     // Ürün listeleme
     public void urunListele() {
-        System.out.printf("%-10s %-10s %-10s %-10s %-10s %-10s%n", "ID", "İsim", "Üretici", "Miktar", "Birim", "Raf");
-        System.out.println("----------------------------------------------------------");
+        String green ="\u001B[32m";
+        String mavi= "\u001B[34m";
+        String reset = "\u001B[0m";
+        String kırmızı= "\u001B[31m";
+        System.out.printf(green+"%-10s %-10s %-10s %-10s %-10s %-10s%n", "ID", "İsim", "Üretici", "Miktar", "Birim", "Raf"+reset);
+        System.out.println(kırmızı+"-------------------------------------------------------------"+reset);
         for (Urun urun : urunDepo.values()) {
-            System.out.printf("%-10d %-10s %-10s %-10.2f %-10s %-10s%n",
+            System.out.printf(mavi+"%-10d %-10s %-10s %-10.2f %-10s %-10s%n",
                     urun.getId(), urun.getUrunIsmi(), urun.getUretici(),
-                    urun.getMiktar(), urun.getBirim(), urun.getRaf());
+                    urun.getMiktar(), urun.getBirim(), urun.getRaf()+reset);
         }
     }
 
     // Ürün Girişi
     public void urunGirisi(int id, double miktar) {
+        String kırmızı= "\u001B[31m";
+        String reset = "\u001B[0m";
         Urun urun = urunDepo.get(id);
         if (urun != null) {
             urun.setMiktar(urun.getMiktar() + miktar);
         } else {
-            System.out.println("Girilen Id de bir ürün bulunamadı.");
+            System.out.println(kırmızı+"Girilen Id de bir ürün bulunamadı."+reset);
         }
     }
 
 
     // Ürünü rafa koyma
     public void urunuRafaKoy(int id, String raf) {
+        String kırmızı= "\u001B[31m";
+        String reset = "\u001B[0m";
         Urun urun = urunDepo.get(id);
         if (urun != null) {
-            // Diğer ürünleri kontrol ederek aynı rafı kullanan farklı ID'li bir ürün var mı bak
             boolean ayniRafKullanimdaMi = urunDepo.values().stream()
                     .anyMatch(u -> raf.equals(u.getRaf()) && u.getId() != id);
 
             if (!ayniRafKullanimdaMi) {
-                urun.setRaf(raf);  // Ürünün raf bilgisi güncellenir
+                urun.setRaf(raf);
                 System.out.println("Ürün rafa yerleştirildi: " + raf);
             } else {
-                System.out.println("Bu raf dolu ve aynı ID'ye sahip olmayan başka bir ürün var.");
+                System.out.println(kırmızı+"Bu raf dolu ve aynı ID'ye sahip olmayan başka bir ürün var."+reset);
             }
         } else {
-            System.out.println("Ürün bulunamadı.");
+            System.out.println(kırmızı+"Ürün bulunamadı."+reset);
         }
     }
 
@@ -68,19 +75,39 @@ public class Depo {
 
     // Ürün çıkışı
     public void urunCikisi(int id, double miktar) {
+        String kırmızı= "\u001B[31m";
+        String reset = "\u001B[0m";
         Urun urun = urunDepo.get(id);
         if (urun != null) {
             if (urun.getMiktar() >= miktar) {
                 urun.setMiktar(urun.getMiktar() - miktar);
                 System.out.println(miktar+ " " + urun.getBirim() + " " +urun.getUrunIsmi()+  " çıkarıldı.");
             } else {
-                System.out.println("Stoktaki "+ urun.getUrunIsmi()+" miktarından fazla ürün çıkışı yapılamaz.\n" +
-                        "Stoktaki "+ urun.getUrunIsmi() +" miktarı :" + urun.getMiktar()+ " "+ urun.getBirim());
+                System.out.println(kırmızı+"Stoktaki "+ urun.getUrunIsmi()+" miktarından fazla ürün çıkışı yapılamaz.\n" +
+                        "Stokta "+reset + urun.getMiktar()+ " "+ urun.getBirim()+" "+ urun.getUrunIsmi() + kırmızı+" vardır."+reset);
             }
         } else {
-            System.out.println("Girilen Id de bir ürün bulunamadı.");
+            System.out.println(kırmızı+"Girilen Id de bir ürün bulunamadı."+reset);
         }
     }
+
+    public void urunIdGetir(String urunIsmi) {
+        String kırmızı= "\u001B[31m";
+        String reset = "\u001B[0m";
+        String sarı="\u001B[33m";
+        int urunId=0;
+        for (Urun urun : urunDepo.values()) {
+            if (urun.getUrunIsmi().equalsIgnoreCase(urunIsmi)) {
+                System.out.println(sarı+urunIsmi+" ürününün Id si: "+reset+ urun.getId());
+                urunId=urun.getId();
+            }
+        }
+        if (urunId==0){
+            System.out.println(kırmızı+urunIsmi+" listede bulunamadı"+reset);
+        }
+    }
+
+
 }
 
 

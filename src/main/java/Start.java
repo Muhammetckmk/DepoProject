@@ -6,10 +6,8 @@ public class Start {
         Scanner scanner = new Scanner(System.in);
         int secim;
 
-
-
         do {
-            System.out.println("1- Ürün Tanımlama\n2- Ürün Listeleme\n3- Ürün Girişi\n4- Ürünü Rafa Koy\n5- Ürün Çıkışı\n0- Çıkış");
+            System.out.println("1- Ürün Tanımlama\n2- Ürün Listeleme\n3- Ürün Girişi\n4- Ürünü Rafa Koy\n5- Ürün Çıkışı\n6- Id çağır\n0- Çıkış");
             System.out.print("Seçiminizi yapın: ");
             secim = scanner.nextInt();
 
@@ -23,10 +21,8 @@ public class Start {
                     scanner.nextLine();
                     System.out.print("Ürün ismi :");
                     urunIsmi = Kontrol.isEmptyIsBlank(scanner,"Ürün ismi :");
-
                     System.out.print("Üretici :");
                     uretici= Kontrol.isEmptyIsBlank(scanner,"Üretici :");
-
                     System.out.print("Birim :");
                      birim= Kontrol.isEmptyIsBlank(scanner,"Birim :");
 
@@ -51,6 +47,7 @@ public class Start {
                     depo.urunGirisi(id, miktar);
                     depo.urunListele();
                     break;
+
                 case 4://ürünü rafa koyma
                     System.out.print("Ürün ID: ");
                     id = scanner.nextInt();
@@ -60,6 +57,7 @@ public class Start {
                     depo.urunuRafaKoy(id, raf);
                     depo.urunListele();
                     break;
+
                 case 5://ürün çıkarma
                     System.out.print("Ürün ID: ");
                     id = scanner.nextInt();
@@ -71,10 +69,18 @@ public class Start {
                     depo.urunCikisi(id, miktar);
                     depo.urunListele();
                     break;
+                case 6:
+                    System.out.print("ürün ismi : ");
+                    scanner.nextLine();
+                    urunIsmi=scanner.nextLine();
+                    depo.urunIdGetir(urunIsmi);
+                    break;
+
                 case 0:
                     System.out.println("Çıkış yapılıyor...\nGüncel Ürün Listesi :");
                     depo.urunListele();
                     break;
+
                 default:
                     System.out.println("Geçersiz seçim!");
             }
