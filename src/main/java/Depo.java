@@ -1,5 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Depo {
 
@@ -9,17 +11,19 @@ public class Depo {
 
     // Ürün Tanımlama Metodu
     public void urunTanimlama(String urunIsmi, String uretici, String birim) {
-
+        String mavi= "\u001B[34m";
+        String reset = "\u001B[0m";
+        String sarı="\u001B[33m";
         boolean ayniUrunVarMi = urunDepo.values().stream()
                 .anyMatch(t -> t.getUrunIsmi().equalsIgnoreCase(urunIsmi) && t.getUretici().equalsIgnoreCase(uretici));
 
         if (ayniUrunVarMi) {
-            System.out.println("Bu ürün zaten tanımlanmış: " + urunIsmi + " - " + uretici);
+            System.out.println(mavi+"Bu ürün zaten tanımlanmış: "+reset + urunIsmi + " - " + uretici);
         } else {
             Urun yeniUrun = new Urun(idSayaci++, urunIsmi, uretici, birim);
             urunDepo.put(yeniUrun.getId(), yeniUrun);
 
-            System.out.println("Yeni ürün tanımlandı: " + yeniUrun);
+            System.out.println(sarı+"Yeni ürün tanımlandı: " +reset+ yeniUrun);
         }
     }
 
@@ -98,13 +102,36 @@ public class Depo {
         int urunId=0;
         for (Urun urun : urunDepo.values()) {
             if (urun.getUrunIsmi().equalsIgnoreCase(urunIsmi)) {
-                System.out.println(sarı+urunIsmi+" ürününün Id si: "+reset+ urun.getId());
+                System.out.println(sarı+urunIsmi+" ürününün Id si: "+reset+ urun.getId()+ " (üreticisi : " +urun.getUretici()+ " )");
                 urunId=urun.getId();
             }
         }
         if (urunId==0){
             System.out.println(kırmızı+urunIsmi+" listede bulunamadı"+reset);
         }
+    }
+    public void urunSilme(Integer id){
+        String kırmızı= "\u001B[31m";
+        String reset = "\u001B[0m";
+        String green ="\u001B[32m";
+        Urun urun=urunDepo.get(id);
+        if (urun !=null){
+            System.out.println(kırmızı+ urun.getUrunIsmi()+reset+ " isimli ürün siliniyor.");
+            System.out.println("silme işlemini onaylamak için :" + kırmızı+"d"+reset );
+            System.out.println("işlemi iptal etmek için :" + green+  " c " +reset+ " tuşuna basınız" );
+            Scanner input=new Scanner(System.in);
+            String cıkıs=input.next();
+           if (cıkıs.equalsIgnoreCase("d")){
+                urunDepo.remove(id);
+               System.out.println(urun.getUrunIsmi()+ kırmızı+" isimli ürününüz listeden silinmiştir"+reset);
+           }else if (cıkıs.equalsIgnoreCase("c")){
+               System.out.println(green+"silme işleminiz iptal edildi"+reset);
+           }
+        }else {
+            System.out.println(kırmızı+"Girilen Id de bir ürün bulunamadı."+reset);
+
+        }
+
     }
 
 
