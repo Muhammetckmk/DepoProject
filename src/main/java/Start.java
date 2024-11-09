@@ -7,7 +7,7 @@ public class Start {
         int secim;
 
         do {
-            System.out.println("1- Ürün Tanımlama\n2- Ürün Listeleme\n3- Ürün Girişi\n4- Ürünü Rafa Koy\n5- Ürün Çıkışı\n6- Id çağır\n0- Çıkış");
+            System.out.println("1- Ürün Tanımlama\n2- Ürün Listeleme\n3- Ürün Girişi\n4- Ürünü Rafa Koy\n5- Ürün Çıkışı\n6- Id çağır\n7- Ürün silme\n0- Çıkış");
             System.out.print("Seçiminizi yapın: ");
             secim = scanner.nextInt();
 
@@ -69,11 +69,17 @@ public class Start {
                     depo.urunCikisi(id, miktar);
                     depo.urunListele();
                     break;
-                case 6:
+                case 6://Id çağırma
                     System.out.print("ürün ismi : ");
                     scanner.nextLine();
                     urunIsmi=scanner.nextLine();
                     depo.urunIdGetir(urunIsmi);
+                    break;
+                case 7://Ürün silme
+                    System.out.print("ürün id : ");
+                    id= scanner.nextInt();
+                    depo.urunSilme(id);
+                    depo.urunListele();
                     break;
 
                 case 0:
