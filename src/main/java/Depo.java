@@ -10,7 +10,7 @@ public class Depo {
 
 
     // Ürün Tanımlama Metodu
-    public void urunTanimlama(String urunIsmi, String uretici, String birim) {
+    public void urunTanimlama(String urunIsmi, String urqetici, String birim) {
         String mavi= "\u001B[34m";
         String reset = "\u001B[0m";
         String sarı="\u001B[33m";
